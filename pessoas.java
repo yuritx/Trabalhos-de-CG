@@ -54,16 +54,27 @@ public class Pessoa  {
 		return x;
 	}
 	
-	public int[] getDesvios(){
+	public int getDesvios(int frame){
 		int aux = 0;
-		int [] desvios = new int[couunt];
-		
+			
 		int [2] reta = getReta(0);
-		for 
 		
+		for (int c = 0; c <= count, c++ ){
+			
+			int eY = y[c] * reta[0] + reta[1];
+			int realY = y[c];
+			
+			if(realY - eY > (2*metragem) || realY - eY <(-2*metragem)){
+				return = c;
+				
+			}
+			aux ++;
+			
+			
+		} 
+		return -1;
 		
 	
 	
 	} 
 }
-
