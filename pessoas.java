@@ -6,54 +6,51 @@ import java.util.List;
 public class Pessoa  {
 	
 	int id;
-	private List<Integer> x;
-	private List<Integer> y;
-	private List<Integer> tempo;
+	private int[] x;
+	private int[] y;
+	int count;
+	int metragem;
 	
-	
-	public Pessoa (int ida){
-		x = new ArrayList<Integer>();
-		y = new ArrayList<Integer>();
-		tempo = new ArrayList<Integer>();
+	public Pessoa (int ida, int tamanho, int metro){
+		x = new int[tamanho];
+		y = new int[tamanho];
 		int id = ida;
+		metragem = metro;
+		count = 0;
 	}
 	
-	public List<Integer> getCaminho(){
-		return x;
+	public int[] getCaminho(int frame){
+		int[] caminho = new int[count - frame];
+		int Xa = x[frame];
+		int Ya = y[frame];
+		double a = (y[count] - Ya) / ( x[count] - Xa); 
+		double b = Ya - a*Xa;
+		return null;
 	}
 
 	public double getSpeed(){
 		return 0; }
 	
-	public void addFrame(int cx, int cy, int time){
-		x.add(cx);
-		y.add(cy);
-		tempo.add(time);
+	public void addFrame(int cx, int cy){
+		x[count] = cx;
+		y[count] = cy;
+		count ++;
 	}
 	
-	public List<Integer> getX(){
-		List<Integer> clonedList = new ArrayList<Integer>(x.size());
-		for (int aux : x) {
-			clonedList.add(aux);
-	    }
-		return clonedList;
+	public int[] getX(){
+		
+		return x.clone();
 	}
 	
-	public List<Integer> getY(){
-		List<Integer> clonedList = new ArrayList<Integer>(y.size());
-		for (int aux : y) {
-			clonedList.add(aux);
-	    }
-		return clonedList;
+	public int[] getY(){
+		
+		return y.clone();
 		}
 	
 	
-	public List<Integer> getTempo(){ 
-		List<Integer> clonedList = new ArrayList<Integer>(tempo.size());
-		for (int aux : tempo) {
-			clonedList.add(aux);
-	    }
-		return clonedList;
+	public int getTempo(){ 
+		int x = 0 + count;
+		return x;
 	}
 }
 
