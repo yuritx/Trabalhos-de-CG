@@ -19,13 +19,14 @@ public class Pessoa  {
 		count = 0;
 	}
 	
-	public int[] getCaminho(int frame){
-		int[] caminho = new int[count - frame];
+	public int[] getReta(int frame){
+		int[] reta = new int[2];
 		int Xa = x[frame];
 		int Ya = y[frame];
-		double a = (y[count] - Ya) / ( x[count] - Xa); 
-		double b = Ya - a*Xa;
-		return null;
+		reta [0] = (y[count] - Ya) / ( x[count] - Xa); 
+		reta [1] = Ya - a*Xa;
+		
+		return caminho;
 	}
 
 	public double getSpeed(){
@@ -52,5 +53,17 @@ public class Pessoa  {
 		int x = 0 + count;
 		return x;
 	}
+	
+	public int[] getDesvios(){
+		int aux = 0;
+		int [] desvios = new int[couunt];
+		
+		int [2] reta = getReta(0);
+		for 
+		
+		
+	
+	
+	} 
 }
 
