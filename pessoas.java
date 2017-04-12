@@ -8,25 +8,26 @@ public class Pessoa  {
 	int id;
 	private int[] x;
 	private int[] y;
-	int count;
 	int metragem;
+	int count;
 	
 	public Pessoa (int ida, int tamanho, int metro){
 		x = new int[tamanho];
 		y = new int[tamanho];
 		int id = ida;
 		metragem = metro;
-		count = 0;
+		
 	}
 	
-	public int[] getReta(int frame){
-		int[] reta = new int[2];
+	public double[] getReta(int frame){
+		double[] reta = new double [2];
 		int Xa = x[frame];
 		int Ya = y[frame];
-		reta [0] = (y[count] - Ya) / ( x[count] - Xa); 
-		reta [1] = Ya - a*Xa;
+		double m = (float)(y[count -1] - Ya) / ( x[count-1] - Xa); 
+		reta[0]= m;
+		reta[1]= y[frame] + m * (x[frame] * (-1));
 		
-		return caminho;
+		return reta;
 	}
 
 	public double getSpeed(){
@@ -54,18 +55,18 @@ public class Pessoa  {
 		return x;
 	}
 	
-	public int getDesvios(int frame){
+	public int getDesvio(int frame){
 		int aux = 0;
 			
-		int [2] reta = getReta(0);
+		double [] reta = getReta(0);
 		
-		for (int c = 0; c <= count, c++ ){
+		for (int c = 0; c < count; c++ ){
 			
-			int eY = y[c] * reta[0] + reta[1];
-			int realY = y[c];
+			double eY = x[c] * reta[0] + reta[1];
+			double realY = y[c];
 			
 			if(realY - eY > (2*metragem) || realY - eY <(-2*metragem)){
-				return = c;
+				return c;
 				
 			}
 			aux ++;
