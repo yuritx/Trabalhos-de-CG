@@ -10,22 +10,32 @@ public class Pessoa  {
 	private int[] y;
 	int metragem;
 	int count;
+	int tempo;
 	
-	public Pessoa (int ida, int tamanho, int metro){
+	public Pessoa (int ida, int tamanho, int metro, int time){
 		x = new int[tamanho];
 		y = new int[tamanho];
 		int id = ida;
 		metragem = metro;
+		tempo = time;
 		
 	}
 	
-	public double[] getReta(int frame){
+	public double[] getReta(int frame1, int frame2){
 		double[] reta = new double [2];
-		int Xa = x[frame];
-		int Ya = y[frame];
-		double m = (float)(y[count -1] - Ya) / ( x[count-1] - Xa); 
+		int Xa = x[frame1];
+		int Ya = y[frame1];
+		int Xb = x[frame2];
+		int Yb = y[frame2];
+		if(Xb -Xa==0 || Ya - Yb==0){
+			reta[0] = 0;
+			reta[1] = 0;
+			return reta;
+		}
+		
+		double m = (float)(y[frame2] - Ya) / ( x[frame2] - Xa); 
 		reta[0]= m;
-		reta[1]= y[frame] + m * (x[frame] * (-1));
+		reta[1]= y[frame1] + m * (x[frame1] * (-1));
 		
 		return reta;
 	}
@@ -51,31 +61,58 @@ public class Pessoa  {
 	
 	
 	public int getTempo(){ 
-		int x = 0 + count;
-		return x;
+		return tempo;
 	}
 	
-	public int getDesvio(int frame){
-		int aux = 0;
-			
-		double [] reta = getReta(0);
+	public int getDesvio(int frame1, int frame2){
+		if(frame1<tempo) return -1;
+		if(frame2> count+tempo) return -1;
+		frame1 = frame1 - tempo;
+		frame2 = frame2 - tempo;
 		
-		for (int c = 0; c < count; c++ ){
-			
+		
+		if(x[frame1]== x[frame2]){
+			for (int c = frame1; c < frame2; c++ ){
+				if(x[c] - x[frame1] > (2*metragem) || x[c] - x[frame1] <(-2*metragem)){
+				return  c + tempo;
+				}
+			}  
+		}
+		
+		if(y[frame1]== y[frame2]){
+			for (int c = frame1; c < frame2; c++ ){
+				if(y[c] - y[frame1] > (2*metragem) || y[c] - y[frame1] <(-2*metragem)){
+				return  c + tempo;
+				}
+			}  
+		}
+		
+
+		int aux = -1;
+		double [] reta = getReta(frame1, frame2);
+		
+		for (int c = frame1; c < frame2; c++ ){
+			int erro = x[c];
 			double eY = x[c] * reta[0] + reta[1];
 			double realY = y[c];
 			
 			if(realY - eY > (2*metragem) || realY - eY <(-2*metragem)){
-				return c;
-				
+				aux = c + tempo;
+				c = count;
 			}
-			aux ++;
-			
-			
-		} 
-		return -1;
+		}  
+		if (aux == -1) return -1; 
 		
-	
-	
+		int desvios = getDesvio(aux + tempo, frame2 + tempo);
+		if(desvios > -1) return desvios; 
+		
+		return aux;
 	} 
+	
+	public int getCount(){
+		return count;
+	}
+	
 }
+	
+
