@@ -37,11 +37,12 @@ public class Main {
 					aux =1;
 				case 1:
 					String z = scan.next();
-					int valorX= Integer.parseInt(z.replaceAll("[^0-9]", ""));
-					z = scan.next();
-					int valorY= Integer.parseInt(z.replaceAll("[^0-9]", ""));
-					pes.addFrame(valorX, valorY);
-					
+					if(z != "\r"){
+						int valorX= Integer.parseInt(z.replaceAll("[^0-9]", ""));
+						z = scan.next();
+						int valorY= Integer.parseInt(z.replaceAll("[^0-9]", ""));
+						pes.addFrame(valorX, valorY);
+					}
 				case 2:
 					scan.next();
 					aux = 1;
@@ -53,13 +54,31 @@ public class Main {
 
 	scanner.close();
 
-	Pessoa test = pessoas.get(4);
-	int er = test.getDesvio(84, 279);
-	//for(int c : test){
-	int jkdb = test.getDesvio(84,168);
-	System.out.println(er);
-	System.out.println(jkdb);
-	//}
+	
+	for(int c = 1; c < pessoas.size(); c++){
+		Pessoa d = pessoas.get(c);
+		int x = d.getDesvio(d.getTempo(),279);
+		int[] desv = new int [30];
+		int t = 0;
+		while(x != -1){
+			x = d.getDesvio(d.getTempo(), x);
+			if(x != -1){
+			desv [t] = x;
+			t++;
+			}
+		}
+		
+		for(int i = 0 ; i < t; i++){
+			System.out.println(desv[i]);
+		}
+		System.out.println("A pessoa " + c + " não tem mais desvios");
+		
+	}
+	
+	
+	Pessoa xa = pessoas.get(4);
+	System.out.println(xa.getDesvio(84, 279));
+	
 	}
 
 }	
