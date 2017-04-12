@@ -15,8 +15,9 @@ public class Pessoa  {
 	public Pessoa (int ida, int tamanho, int metro, int time){
 		x = new int[tamanho];
 		y = new int[tamanho];
-		int id = ida;
+		id = ida;
 		metragem = metro;
+		
 		tempo = time;
 		
 	}
@@ -65,16 +66,16 @@ public class Pessoa  {
 	}
 	
 	public int getDesvio(int frame1, int frame2){
+		
 		if(frame1<tempo) return -1;
 		if(frame2> count+tempo) return -1;
 		frame1 = frame1 - tempo;
 		frame2 = frame2 - tempo;
 		
-		
 		if(x[frame1]== x[frame2]){
 			for (int c = frame1; c < frame2; c++ ){
 				if(x[c] - x[frame1] > (2*metragem) || x[c] - x[frame1] <(-2*metragem)){
-				return  c + tempo;
+					return  c + tempo;
 				}
 			}  
 		}
@@ -82,17 +83,15 @@ public class Pessoa  {
 		if(y[frame1]== y[frame2]){
 			for (int c = frame1; c < frame2; c++ ){
 				if(y[c] - y[frame1] > (2*metragem) || y[c] - y[frame1] <(-2*metragem)){
-				return  c + tempo;
+					return  c + tempo;
 				}
 			}  
 		}
 		
-
 		int aux = -1;
 		double [] reta = getReta(frame1, frame2);
 		
 		for (int c = frame1; c < frame2; c++ ){
-			int erro = x[c];
 			double eY = x[c] * reta[0] + reta[1];
 			double realY = y[c];
 			
@@ -105,14 +104,17 @@ public class Pessoa  {
 		
 		int desvios = getDesvio(aux + tempo, frame2 + tempo);
 		if(desvios > -1) return desvios; 
-		
 		return aux;
 	} 
 	
 	public int getCount(){
 		return count;
 	}
-	
+	public int getId(){
+		return id;
+	}
 }
 	
+
+
 
